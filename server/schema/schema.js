@@ -3,7 +3,8 @@ const { GraphQLSchema } = require("graphql");
 const graphql=require('graphql')
 const {
     GraphQLObjectType,
-    GraphQLString
+    GraphQLString,
+    GraphQLID      //GraphQLID means if we pass string("1") or Numerical(1) value in graphql Query parameter it does not provide error 
 } =graphql;
 
 
@@ -17,7 +18,7 @@ var books=[
 const BookType= new GraphQLObjectType({
     name:'Book',
     fields:()=>({
-        id:{type:GraphQLString},
+        id:{type:GraphQLID},
         name:{type:GraphQLString},
         genre:{type:GraphQLString}
     })
@@ -28,7 +29,7 @@ const RootQuery= new GraphQLObjectType({
     fields:{
         book:{
             type:BookType,
-            args:{id: {type:GraphQLString}},
+            args:{id: {type:GraphQLID}},  
             resolve:(parent,args)=>{
                 //code to get data from db/other source
                 return books.find(book => book.id === args.id)
