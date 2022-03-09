@@ -11,9 +11,9 @@ const {
 
 // dummy data
 var books=[
-    {name:'Name of the Wind',genre:'Fantasy',id:'1'},
-    {name:'The Final Empire',genre:'Fantasy',id:'2'},
-    {name:'The Long Earth',genre:'Sci-Fi',id:'3'}
+    {name:'Name of the Wind',genre:'Fantasy',id:'1',authorId:'1'},
+    {name:'The Final Empire',genre:'Fantasy',id:'2',authorId:'2'},
+    {name:'The Long Earth',genre:'Sci-Fi',id:'3',authorId:'3'}
 ]
 
 const authors =  [
@@ -27,7 +27,14 @@ const BookType= new GraphQLObjectType({
     fields:()=>({
         id:{type:GraphQLID},
         name:{type:GraphQLString},
-        genre:{type:GraphQLString}
+        genre:{type:GraphQLString},
+        author:{
+            type:AuthorType,
+            resolve:(parent,args)=>{    //same as:  resolve(parent,args){
+                //console.log(parent)
+                return authors.find(author=>author.id === parent.authorId)
+            }
+        }
     })
 })
 
@@ -84,4 +91,16 @@ module.exports=new GraphQLSchema({
       
 //     } 
 //   }
+
+
+// {
+//     book(id:2){  //according to the book it also return the author name of this book
+//       name,
+//       genre,
+//       author{
+//         name
+//       }
+//     }
+//   }
+  
   
