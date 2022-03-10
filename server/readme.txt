@@ -12,6 +12,8 @@ vdo10::> run first graphql query in graphiql window
 
 after video 10 i follow version control in github
 
+vdo16 pip install mongoose <install mongoose model to create connection of online mongodb atlas database
+
 
 
 
