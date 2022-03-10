@@ -72,6 +72,18 @@ const RootQuery= new GraphQLObjectType({
                 //code to get data from db/other source
                 return authors.find(author => author.id === args.id)
             }
+        },
+        bookss:{
+            type:new GraphQLList(BookType),
+            resolve:(parent,args)=>{
+                return books
+            }
+        },
+        authors:{
+            type:new GraphQLList(AuthorType),
+            resolve:(parent,args)=>{
+                return authors
+            }
         }
     }
 })
@@ -123,4 +135,27 @@ module.exports=new GraphQLSchema({
 //   }
   
   
-  
+// {
+//     bookss{    //It return all the books name and corresponding author name
+//       name,
+//       author{
+//         name,
+//       }
+//     }
+//   }
+
+
+// {
+//     bookss{    //It return all the books name
+//       name,
+//     }
+//   }
+
+// {
+//     authors{  //it return the all authors name corresponding his book name
+//       name,
+//       books{
+//         name
+//       }
+//     }
+//   }
