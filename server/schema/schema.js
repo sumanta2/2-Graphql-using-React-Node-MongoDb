@@ -5,7 +5,8 @@ const {
     GraphQLObjectType,
     GraphQLString,
     GraphQLID,    //GraphQLID means if we pass string("1") or Numerical(1) value in graphql Query parameter it does not provide error 
-    GraphQLInt
+    GraphQLInt,
+    GraphQLList
 } =graphql;
 
 
@@ -43,7 +44,13 @@ const AuthorType= new GraphQLObjectType({
     fields:()=>({
         id:{type:GraphQLID},
         name:{type:GraphQLString},
-       age:{type:GraphQLInt}
+       age:{type:GraphQLInt},
+       books:{
+           type: new GraphQLList(BookType),
+           resolve:(parent,args)=>{
+               return books.filter(book=>book.authorId == parent.id)
+           }
+       }
     })
 })
 
@@ -102,5 +109,18 @@ module.exports=new GraphQLSchema({
 //       }
 //     }
 //   }
+
+
+// {
+//     author(id:1) {  //it return author name which id is 1 and his all book name
+//       name,
+//       age,
+//       books{
+//         name
+//       }
+//     }
+    
+//   }
+  
   
   
