@@ -2,7 +2,8 @@ const { GraphQLSchema } = require("graphql");
 
 const graphql=require('graphql')
 const Book= require("../models/book")
-const Author=require("../models/author")
+const Author=require("../models/author");
+const Book = require("../models/book");
 const {
     GraphQLObjectType,
     GraphQLString,
@@ -36,6 +37,7 @@ const BookType= new GraphQLObjectType({
             resolve:(parent,args)=>{    //same as:  resolve(parent,args){
                 //console.log(parent)
                 // return authors.find(author=>author.id === parent.authorId)
+                return Author.findById(parent.authorId)
             }
         }
     })
@@ -51,6 +53,7 @@ const AuthorType= new GraphQLObjectType({
            type: new GraphQLList(BookType),
            resolve:(parent,args)=>{
             //    return books.filter(book=>book.authorId == parent.id)
+            return Book.find({authorId:parent.id})
            }
        }
     })
@@ -65,6 +68,7 @@ const RootQuery= new GraphQLObjectType({
             resolve:(parent,args)=>{
                 //code to get data from db/other source
                 // return books.find(book => book.id === args.id)
+                return Book.findById(args.id)
             }
         },
         author:{
@@ -73,18 +77,21 @@ const RootQuery= new GraphQLObjectType({
             resolve:(parent,args)=>{
                 //code to get data from db/other source
                 // return authors.find(author => author.id === args.id)
+                return Author.findById(args.id)
             }
         },
         bookss:{
             type:new GraphQLList(BookType),
             resolve:(parent,args)=>{
                 // return books
+                return Book.find({})   //here empty braces return all data
             }
         },
         authors:{
             type:new GraphQLList(AuthorType),
             resolve:(parent,args)=>{
                 // return authors
+                return Author.find({})  //here empty braces return all data
             }
         }
     }
