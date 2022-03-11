@@ -106,6 +106,22 @@ const Mutation= new GraphQLObjectType({
                 });
                  return author.save()  //it save the data to online database
             }
+        },
+        addBook:{
+            type:BookType,
+            args:{
+                name:{type:GraphQLString},
+                genre:{type:GraphQLString},
+                authorId:{type:GraphQLID},
+            },
+            resolve:(parent,args)=>{
+                let book=new Book({
+                    name:args.name,
+                    genre:args.genre,
+                    authorId:args.authorId
+                });
+                return book.save()          //it save the data to online database
+            }
         }
     }
 })
@@ -181,4 +197,18 @@ module.exports=new GraphQLSchema({
 //         name
 //       }
 //     }
+//   }
+
+
+// mutation{
+//     addAuthor(name:"Shgign",age:37){      //this is mutation type query help to insert data in database
+//       name,age
+//   }
+//   }
+
+// mutation{
+//     addBook(name:"Red Bull",genre:"Avhi",authorId:"622b61351cb77557a470df7c"){
+//       name,
+//       genre              //this is mutation type query help to insert data in database
+//   }
 //   }
