@@ -2,14 +2,15 @@ const { GraphQLSchema } = require("graphql");
 
 const graphql=require('graphql')
 const Book= require("../models/book")
-const Author=require("../models/author");
-const Book = require("../models/book");
+const Author=require("../models/author"); 
+
 const {
     GraphQLObjectType,
     GraphQLString,
     GraphQLID,    //GraphQLID means if we pass string("1") or Numerical(1) value in graphql Query parameter it does not provide error 
     GraphQLInt,
-    GraphQLList
+    GraphQLList,
+    GraphQLNonNull
 } =graphql;
 
 
@@ -103,8 +104,8 @@ const Mutation= new GraphQLObjectType({
         addAuthor:{
             type:AuthorType,
             args:{
-                name:{type:GraphQLString},
-                age:{type:GraphQLInt}
+                name:{type: new GraphQLNonNull(GraphQLString)},  //new GraphQLNonNull means it is mandatory property in query if does not provide this property value graphql generate error
+                age:{type:new GraphQLNonNull(GraphQLInt)}
             },
             resolve:(parent,args)=>{
                 let author= new Author({
@@ -117,9 +118,9 @@ const Mutation= new GraphQLObjectType({
         addBook:{
             type:BookType,
             args:{
-                name:{type:GraphQLString},
-                genre:{type:GraphQLString},
-                authorId:{type:GraphQLID},
+                name:{type:new GraphQLNonNull(GraphQLString)},  //new GraphQLNonNull means it is mandatory property in query if does not provide this property value graphql generate error
+                genre:{type:new GraphQLNonNull(GraphQLString)},
+                authorId:{type:new GraphQLNonNull(GraphQLID)},
             },
             resolve:(parent,args)=>{
                 let book=new Book({
