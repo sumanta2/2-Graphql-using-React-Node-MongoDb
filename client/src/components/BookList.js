@@ -23,7 +23,6 @@ function BookList() {
     return (
       <div >
         <ul id="book-list">
-            <li>Book Name</li>
             {
                 data.bookss.map((book)=>{
                      return <li key={book.id}>{book.name}</li>

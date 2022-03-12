@@ -4,6 +4,7 @@ import {
   InMemoryCache,
   ApolloProvider
 } from "@apollo/client";
+import AddBook from "./components/AddBook";
 
 //apollo client setup
 const client = new ApolloClient({   //here we provide the server endpoint url 
@@ -17,6 +18,7 @@ function App() {
     <div>
       <h1>Sumatra's Reading List</h1>
       <BookList/> 
+      <AddBook/>
 
     </div>
     </ApolloProvider>
