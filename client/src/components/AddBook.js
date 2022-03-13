@@ -5,7 +5,7 @@ import {
     useMutation
 } from "@apollo/client";
 
-import { getAuthorsQuery,AddBookMutation} from '../queries/queries'
+import { getAuthorsQuery,AddBookMutation,getBooksQuery} from '../queries/queries'
 
 
 
@@ -14,7 +14,7 @@ function AddBook() {
 
     const { loading:AuthorsLoading, data:AuthorsData } = useQuery(getAuthorsQuery)   //fetch multiple graphql query  data in same file
     //const {loading:bookLoading, data:myData} = useQuery(AddBookMutation)
-    const [createPost, {loading:bookLoading, data:myData}] = useMutation(AddBookMutation);
+    const [createPost, {loading:bookLoading}] = useMutation (AddBookMutation);
 
 
     if (AuthorsLoading ) { return "Loading..." }
@@ -27,7 +27,9 @@ function AddBook() {
                 name:value.name,
                 genre:value.genre,
                 authorId:value.authorId
-        }})
+        },
+        refetchQueries:[{query:getBooksQuery}]  //when this(AddBookMutation) query call it call getBookQuery it work like trigger when any event occur it automatically call another function like operation
+    })
 
         if (bookLoading){ return "Loading"}
         console.log(value)
