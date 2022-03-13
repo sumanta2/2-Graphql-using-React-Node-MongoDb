@@ -4,6 +4,7 @@ import {
   } from "@apollo/client";
 
   import {getBooksQuery} from '../queries/queries'
+import BookDetails from "./BookDetails";
 
   
 function BookList() {
@@ -22,6 +23,7 @@ function BookList() {
                     })
             }
         </ul>
+        <BookDetails/>
       </div>
     );
   }
