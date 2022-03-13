@@ -25,15 +25,15 @@ function BookDetails({ bookId }) {
 
     var book = bookData?.book
 
-    if (bookLoading) { return "Loading..." }
-    if (bookError) { return "Error in Fetching Data :( " }
+    if (bookLoading) { return <div id="book-details" >Loading...</div> }
+    if (bookError) { return <div id="book-details" >Error in Fetching Data :( </div> }
 
 
 
 
 
     return (
-        <div >
+        <div id="book-details" >
             <h2>{book?.name}</h2>
             <p>{book?.genre}</p>
             <p>{book?.author.name}</p>

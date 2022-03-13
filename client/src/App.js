@@ -15,7 +15,7 @@ const client = new ApolloClient({   //here we provide the server endpoint url
 function App() {
   return (
     <ApolloProvider client={client}>
-    <div>
+    <div id="main">
       <h1>Sumatra's Reading List</h1>
       <BookList/> 
       <AddBook/>
