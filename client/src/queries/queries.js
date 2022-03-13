@@ -1,7 +1,7 @@
 import {
     gql,
-    // useQuery
   } from "@apollo/client";
+import { useEffect } from "react";
 
   const getBooksQuery=gql`
   {
@@ -22,5 +22,15 @@ import {
       }
   }
   `
+  
+  const AddBookMutation=gql`
+  {
+    mutation{
+      addBook(name:"",genre:"",authorId:"",){
+        name,
+        id
+      }
+    }
+  }`
 
-  export {getAuthorsQuery, getBooksQuery};
+  export {getAuthorsQuery, getBooksQuery, AddBookMutation};

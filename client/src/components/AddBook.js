@@ -4,20 +4,23 @@ import {
     useQuery
 } from "@apollo/client";
 
-import { getAuthorsQuery } from '../queries/queries'
+import { getAuthorsQuery,AddBookMutation} from '../queries/queries'
 
 
 function AddBook() {
     const [value, setValue] = useState({ name: '', genre: '', authorId: 'Not Selected' })
 
-    const { loading, data } = useQuery(getAuthorsQuery)
+    const { loading:AuthorsLoading, data:AuthorsData } = useQuery(getAuthorsQuery)   //fetch multiple graphql query  data in same file
+    //const {loading:bookLoading, data:myData} = useQuery(AddBookMutation)
 
-    if (loading) { return "Error..." }
+
+    if (AuthorsLoading ) { return "Loading..." }
     //console.log(data)
 
     const submitForm=(e)=>{
         e.preventDefault()
-        console.log(value)
+        //AddBookMutation()
+        //console.log(myData,value)
 
     }
 
@@ -51,10 +54,10 @@ function AddBook() {
                 <div className="field">
                     <label>Author:</label>
                     <select name="authorId" onChange={inputEvent} >
-                    {loading && <option>Loading Authors</option>}
+                    {AuthorsLoading && <option>Loading Authors</option>}
                     <option >select author</option>
-                    {!loading &&
-                        data?.authors.map((author) => {
+                    {!AuthorsLoading &&
+                        AuthorsData?.authors.map((author) => {
                             return <option key={author.id} value={author.id}>{author.name}</option>
                         })}
                     </select>
