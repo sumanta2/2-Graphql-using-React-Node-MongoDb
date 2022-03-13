@@ -1,10 +1,12 @@
 import {useState} from 'react'
 import {
     // gql,
-    useQuery
+    useQuery,
+    useMutation
 } from "@apollo/client";
 
 import { getAuthorsQuery,AddBookMutation} from '../queries/queries'
+
 
 
 function AddBook() {
@@ -12,15 +14,23 @@ function AddBook() {
 
     const { loading:AuthorsLoading, data:AuthorsData } = useQuery(getAuthorsQuery)   //fetch multiple graphql query  data in same file
     //const {loading:bookLoading, data:myData} = useQuery(AddBookMutation)
+    const [createPost, {loading:bookLoading, data:myData}] = useMutation(AddBookMutation);
 
 
     if (AuthorsLoading ) { return "Loading..." }
     //console.log(data)
 
     const submitForm=(e)=>{
+
         e.preventDefault()
-        //AddBookMutation()
-        //console.log(myData,value)
+        createPost({variables:{
+                name:value.name,
+                genre:value.genre,
+                authorId:value.authorId
+        }})
+
+        if (bookLoading){ return "Loading"}
+        console.log(value)
 
     }
 

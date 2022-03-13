@@ -1,7 +1,6 @@
 import {
     gql,
   } from "@apollo/client";
-import { useEffect } from "react";
 
   const getBooksQuery=gql`
   {
@@ -22,15 +21,14 @@ import { useEffect } from "react";
       }
   }
   `
-  
+  //THE EXAMPLE OF QUERY VARIABLE
+  //here ! indicate this value is mandatory Blank data not allowed
   const AddBookMutation=gql`
-  {
-    mutation{
-      addBook(name:"",genre:"",authorId:"",){
+    mutation($name:String!,$genre:String!,$authorId:ID!){   
+      addBook(name:$name,genre:$genre,authorId:$authorId,){
         name,
         id
       }
-    }
   }`
 
   export {getAuthorsQuery, getBooksQuery, AddBookMutation};
